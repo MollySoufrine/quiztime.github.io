@@ -1,26 +1,16 @@
-body{
-    background-color: white;
-    font-family: helvetica, sans-serif;
-    text-align: center;
+body {
+  background-color: white;
+  font-family: helvetica, sans-serif;
+  text-align: center;
 }
-header{
-    font-size: 35px;
-    color: black;
-
+header {
+  font-size: 35px;
+  color: black;
 }
-h1{
-    font-size: 20px;
-    text-decoration: underline;
-
+h1 {
+  font-size: 20px;
+  text-decoration: underline;
 }
-var score = 0;
-for (var i = 0; i < questions.length; i++) {
-  var response = window.prompt(questions[i].prompt);
-  if (response == questions[i].answer) {
-    score++;
-    alert("correct");
-  } else {
-    alert("WRONG!");
-  }
+button {
+  background-color: red;
 }
-alert("you got " + score + "/" + questions.length);
