@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Quiz Time!</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="quiz">
+      <div id="main">
+        <h1>Ready to test your knowledge about the wizard world of HP?</h1>
+      </div>
+      <div>
+        <button id="startquiz">Start Quiz!</button>
+      </div>
+      <div id="question"></div>
+      <div id="timer"></div>
+      <div id="choices"></div>
+      <!-- <div class="choice" id="a" onclick="checkAnswer('a')">a</div>
+      <div class="choice" id="b" onclick="checkAnswer('b')">b</div>
+      <div class="choice" id="c" onclick="checkAnswer('c')">c</div> -->
+    </div>
+
+    <div id="results" style="display: none;">
+      <h2>view high scores</h2>
+      <p id="points"></p>
+      <p id="initials">Enter initials<input /></p>
+      <button id="submit">Submit</button>
+    </div>
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.js"
+      integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+      crossorigin="anonymous"
+    ></script>
+    <script src="script.js"></script>
+  </body>
+</html>
