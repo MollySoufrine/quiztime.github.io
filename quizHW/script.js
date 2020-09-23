@@ -1,89 +1,66 @@
 $(document).ready(function () {
   console.log("ready!");
 
-  var startQuizBtn = $("#startquiz");
-  var quiz = $("#quiz");
-  var title = document.getElementById("question");
-  var timer = document.querySelector("#timer");
-  var results = $("#results");
-  var points = $("#points");
-  var submit = $("#submit");
-  var initials = $("#initials");
-
-  var questions = [
-    {
-      question:
-        "What is the name of the secret society Albus Dumbledore founded?",
-      answers: ["Order of the bird", "Butterbeer", "Order of the pheonix"],
-      correctAnswer: "Order of the pheonix",
-    },
-    {
-      question: "what is the name of Harry Potters aunt?",
-      answers: ["Magnolia Dursley", "Petunia Dursley", "Daisy Dursley"],
-      correctAnswer: "Petunia Dursley",
-    },
-
-    {
-      question: "Who is Harry Potters God Father?",
-      answers: ["Mr. Weasley", "Hagrid", "Sirius Black"],
-      correctAnswer: "Sirius Black",
-    },
-    {
-      question: "What creature was living in the chamber of secrets?",
-      answers: ["Giant Spider", "Manticore", "Basalisk"],
-      correctAnswer: "Basalisk",
-    },
-  ];
-
-  var score = 4;
-  var questionNumber = 0;
-  var result = localStorage.getItem("result");
-  results.textContent = result;
-  // var userAns = "";
-  var timeLeft;
-  var time = questions.length * 15;
-  var choices = document.querySelector("#choices");
-
-  function startQuiz() {
-    // start timer ticks every 1 second
-    timeLeft = setInterval(clockTick, 1000);
-    // show starting time
-    timeLeft.textContent = time;
-    // function that get a question for you
-    getQuestion();
-  }
-
-  function getQuestion() {
-    // get current question object from array
-    var q = questions[questionNumber];
-    title.textContent = q.question;
-    console.log(q.question);
-    choices.innerHTML = "";
-    for (var i = 0; i < 3; i++) {
-      var a = q.answers[i];
-      //value a is button. create buttn,
-      var button = document.createElement("button");
-      button.setAttribute("value", a);
-      //use text contnt to give value q answers i.
-      button.textContent = a;
-      button.onclick = questionClick;
-      //then append button to div called choices all in this loop. generating abc, buttons to select answer
-
-      choices.appendChild(button);
+  (function () {
+    init();
+    function Question(question, answer, correct) {
+      this.question = question;
+      this.answer = answer;
+      this.correct = correct;
     }
-    // done
-  }
+    Question.prototype.displayQuestion = function () {
+      title.textContent = this.question;
+
+      choices.innerHTML = "";
+      for (var i = 0; i < 3; i++) {
+        var a = this.answer;
+
+        var button = document.createElement("button");
+        button.setAttribute("value", a);
+        
+        button.textContent = a;
+        button.onclick = questionClick;
+        //then append button to div called choices all in this loop. generating abc, buttons to select answer
+
+        choices.appendChild(button);
+      }
+    };
+    var q1 = new Question(
+      "What is the name of the secret society Albus Dumbledore founded?",
+      ["Order of the bird", "Butterbeer", "Order of the pheonix"],
+      2
+    );
+
+    var q2 = new Question(
+      "what is the name of Harry Potters aunt?",
+      ["Magnolia Dursley", "Petunia Dursley", "Daisy Dursley"],
+      1
+    );
+
+    var q3 = new Question(
+      "Who is Harry Potters God Father?",
+      ["Mr. Weasley", "Hagrid", "Sirius Black"],
+      2
+    );
+    function score() {
+      var sc = 0;
+      return function (correct) {
+        if (correct) {
+          sc++;
+        }
+        return sc;
+      };
+      
+    }
+    var keepScore = score()
+
+
   function endQuiz() {
     // stop timer
     clearInterval(timeLeft);
     quiz.css("display", "none");
     points.text(score);
     results.css("display", "");
-
-    // TODO:
-    // show end screen
-    // show final score
-    // hide questions section
   }
 
   // function that keep track of time
@@ -95,14 +72,24 @@ $(document).ready(function () {
       endQuiz();
     }
   }
-  //timerEl.textContent = totalseconds;
-  // check if user ran out of time
-  //if (time <= 0) {
-  //End the quiz
-  //endQuiz();
-  //}}
+  function nextQuestion() {
+    var n = Math.floor(Math.random() * questions.length);
+    questions[n].displayQuestion();
+    var answer = prompt('Please select the correct answer.');
+    if(answer !== 'exit') {
+        questions[n].checkAnswer(parseInt(answer), keepScore);
+        
+        nextQuestion();
+    }
+}
 
-  function questionClick() {
+nextQuestion();
+
+  function checkIfWrong(){
+    switch(){
+
+    }
+  }
     // check if user guessed wrong
 
     if (this.value !== questions[questionNumber].correctAnswer) {
@@ -135,13 +122,27 @@ $(document).ready(function () {
     }
   }
 
-  function saveScore() {
-    var j = initials.value;
-    var s = score.value;
-    window.localStorage.setItem("initials", j);
-    window.localStorage.setItem("score", s);
-    alert("it works");
-  }
-  submit.click(saveScore);
-  startQuizBtn.click(startQuiz);
-});
+
+function init() {
+  var score = 0;
+  var questionNumber = 0;
+  var result = localStorage.getItem("result");
+  results.textContent = result;
+
+  var timeLeft;
+  var time = questions.length * 15;
+  var choices = document.querySelector("#choices");
+  // start timer ticks every 1 second
+  timeLeft = setInterval(clockTick, 1000);
+  // show starting time
+  timeLeft.textContent = time;
+  // function that gets a question for you
+  var startQuizBtn = $("#startquiz");
+  var quiz = $("#quiz");
+  var title = document.getElementById("question");
+  var timer = document.querySelector("#timer");
+  var results = $("#results");
+  var points = $("#points");
+  var submit = $("#submit");
+  var initials = $("#initials");
+}

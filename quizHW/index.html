@@ -8,24 +8,29 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div id="quiz">
-      <div id="main">
-        <h1>Ready to test your knowledge about the wizard world of HP?</h1>
+    <div class="wrapper clearfix">
+      <div class="player-panel">
+        <div id="quiz">
+          <div id="main">
+            <h1>Ready to test your knowledge about the wizard world of HP?</h1>
+          </div>
+          <div>
+            <button id="startquiz">Start Quiz!</button>
+          </div>
+          <div id="question"></div>
+          <div id="timer"></div>
+          <div id="choices"></div>
+        </div>
       </div>
-      <div>
-        <button id="startquiz">Start Quiz!</button>
-      </div>
-      <div id="question"></div>
-      <div id="timer"></div>
-      <div id="choices"></div>
     </div>
 
-    <div id="results" style="display: none;">
+    <div id="results" style="display: none">
       <h2>view high scores</h2>
       <p id="points"></p>
       <p id="initials">Enter initials<input /></p>
       <button id="submit">Submit</button>
     </div>
+
     <script
       src="https://code.jquery.com/jquery-3.5.1.js"
       integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
